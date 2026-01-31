@@ -1,0 +1,483 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ✅ robust gegen horizontales Scrollen */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+/* BODY */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #2b2b2b;
+
+  /* ✅ WICHTIG: echte sichtbare Höhe (per JS: --vh) */
+  min-height: calc(var(--vh, 1vh) * 100);
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* LOGO */
+.logo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: -30px;
+  max-width: 390px;
+  width: 100%;
+}
+
+/* NAVIGATION (wie vorher) */
+.nav {
+  position: sticky;
+  position: -webkit-sticky; /* iOS */
+  top: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  padding: 16px 10px;
+  background-color: #3a2a1d;
+
+  /* ✅ genau wie vorher: Startseite-Optik bleibt */
+  margin-top: -52px;
+}
+
+/* ✅ FALLBACK: wenn sticky spinnt, macht JS diese Klasse drauf */
+.nav.is-stuck {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  /* sobald fixiert: KEIN negatives margin mehr (sonst verschiebt es nach oben) */
+  margin-top: 0 !important;
+  z-index: 9999;
+}
+
+/* Platzhalter, damit beim Fixieren nix springt */
+.nav-spacer {
+  display: none;
+  height: 0; /* ✅ wichtig: JS setzt inline-height, wenn active */
+}
+
+.nav-spacer.active {
+  display: block;
+}
+
+/* NAV ITEMS */
+.nav-item {
+  color: #f5f2ee;
+  text-decoration: none;
+  font-size: 1.05rem;
+  padding-bottom: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #7a1f1f;
+  transition: width 0.3s ease;
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+  width: 100%;
+}
+
+/* DROPDOWN */
+.nav-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 140%;
+  left: -4px;
+  background-color: #3a2a1d;
+  min-width: 260px;
+  border-radius: 16px;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+  padding: 12px 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  transform: translateY(-10px);
+  z-index: 999;
+}
+
+.nav-dropdown.open .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 11px 22px;
+  color: #f5f2ee;
+  text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+  background-color: rgba(255,255,255,0.08);
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+/* ✅ MENU-SEITEN: damit Footer unten bleibt */
+.menu-page {
+  flex: 1;
+}
+
+/* STORY DESKTOP */
+.story {
+  position: relative;
+  max-width: 700px;
+  margin: -140px auto -20px auto;
+}
+
+.scroll-img {
+  width: 100%;
+}
+
+/* HANDSCHRIFT DESKTOP */
+.scroll-text {
+  position: absolute;
+  top: 165px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-0.4deg);
+  width: 78%;
+  text-align: center;
+  font-family: "Dancing Script", cursive;
+  color: #4a2f1f;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+
+.scroll-text p {
+  font-size: 1.5rem;
+  line-height: 1.48;
+  font-weight: 600;
+}
+
+/* TITEL */
+.scroll-title {
+  display: block;
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* VATER DESKTOP */
+.scroll-owner {
+  position: absolute;
+  bottom: 243px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 185px;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.35));
+}
+
+/* STIFT DESKTOP */
+.pen-deco {
+  position: absolute;
+  right: -200px;
+  bottom: 580px;
+  width: 420px;
+  transform: rotate(10deg) scaleY(1.38);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* STANDORT */
+.location-section {
+  margin-top: -120px;
+}
+
+.location-inner {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.location-inner h2 {
+  margin-top: 25px;
+  font-size: 2.2rem;
+  color: #7a1f1f;
+  margin-bottom: 10px;
+}
+
+.location-subtitle {
+  margin-bottom: 40px;
+}
+
+/* MAP */
+.map-container {
+  height: 420px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* STRASSENSCHILD */
+.location-sign {
+  position: absolute;
+  left: -300px;
+  top: 140px;
+  width: 280px;
+}
+
+/* ADRESSE */
+.address {
+  margin: 20px 0 70px;
+}
+
+/* INFO */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 110px;
+  margin-top: 100px;
+}
+
+.info-box {
+  background: #fff;
+  padding: 42px;
+  border-radius: 20px;
+  box-shadow: 0 14px 32px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.info-box h3 {
+  font-size: 1.6rem;
+  color: #7a1f1f;
+  margin-bottom: 22px;
+}
+
+.info-box p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+/* FOOTER */
+.footer {
+  padding: 30px;
+  background-color: #3a2a1d;
+  color: #cfc9c2;
+  text-align: center;
+  width: 100%;
+  flex-shrink: 0;
+
+  margin-top: auto; /* ✅ Footer nach unten */
+}
+
+/* ================= SPEISEKARTEN: OPTIK WIE GEWOLLT ================= */
+.nav.menu-nav {
+  margin-top: 0 !important;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 700px) {
+
+  .content {
+    margin: 20px auto;
+    padding: 0 10px;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 10px;
+
+    /* ✅ wie vorher: Startseite Mobile-Optik */
+    margin-top: -40px;
+  }
+
+  .nav-item {
+    font-size: 0.9rem;
+  }
+
+  .hero {
+    height: 180px;
+  }
+
+  .logo {
+    max-width: 220px;
+    margin-top: -20px;
+  }
+
+  .story {
+    margin: -60px auto 0 auto;
+    max-width: 100%;
+  }
+
+  .scroll-img {
+    display: block;
+    width: 100%;
+  }
+
+  .scroll-text {
+    position: absolute;
+    top: 16%;
+    left: 50%;
+    width: 78%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  .scroll-title {
+    font-size: 5.2vw;
+    margin-bottom: 1.5vh;
+    display: block;
+  }
+
+  .scroll-text p {
+    font-size: 3.4vw;
+    line-height: 1.45;
+    font-weight: 600;
+  }
+
+  .scroll-owner {
+    position: absolute;
+    bottom: 23%;
+    width: 22%;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35));
+  }
+
+  .pen-deco {
+    display: block;
+    width: 35%;
+    right: -25px;
+    bottom: 42%;
+    opacity: 0.9;
+  }
+
+  .location-inner,
+  .info-box {
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    padding: 25px 20px;
+    text-align: center;
+    margin-bottom: 25px;
+    max-width: 100%;
+    position: relative;
+    left: auto;
+    transform: none;
+  }
+
+  .location-section {
+    margin-top: -25px;
+    padding: 0 10px;
+  }
+
+  .location-inner h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #7a1f1f;
+    margin-bottom: 5px;
+  }
+
+  .location-subtitle {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    display: block;
+    color: #555;
+  }
+
+  .map-container {
+    height: 280px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+  }
+
+  .address {
+    margin: 10px 0 0 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .location-sign {
+    display: none;
+  }
+
+  .info-grid {
+    display: block;
+    margin-top: 0;
+    gap: 0;
+  }
+
+  .info-box h3 {
+    font-size: 1.6rem;
+    color: #7a1f1f;
+    margin-bottom: 15px;
+  }
+
+  .info-box p {
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+
+  .footer {
+    font-size: 0.85rem;
+    padding: 20px;
+    background-color: #3a2a1d;
+    color: #cfc9c2;
+
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  }
+}

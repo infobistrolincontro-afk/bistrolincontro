@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bistro L'incontro</title>
+
+  <!-- GOOGLE FONT – HANDSCHRIFT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <img src="assets/hero.png" alt="Hero Bild" class="hero-img">
+    <img src="assets/logo.png" alt="Bistro L'incontro Logo" class="logo">
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <a href="index.html" class="nav-item active">Startseite</a>
+
+    <div class="nav-dropdown">
+      <span class="nav-item nav-trigger">Speisekarte ▾</span>
+      <div class="dropdown-menu">
+        <a href="pizza.html">Pizza</a>
+        <a href="pasta.html">Pasta</a>
+        <a href="salate.html">Salate</a>
+        <a href="doener.html">Döner</a>
+        <a href="vegetarische-gerichte.html">Vegetarische Gerichte</a>
+        <a href="burger-menues.html">Burger-Menüs</a>
+        <a href="schnitzelgerichte.html">Schnitzelgerichte</a>
+        <a href="wurst.html">Wurst</a>
+        <a href="basmati-reis-gerichte.html">Basmati-Reis-Gerichte</a>
+      </div>
+    </div>
+
+    <a href="#oeffnungszeiten" class="nav-item">Öffnungszeiten</a>
+    <a href="#kontakt" class="nav-item">Kontakt</a>
+  </nav>
+
+  <!-- Spacer -->
+  <div class="nav-spacer" aria-hidden="true"></div>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- STORY -->
+    <section class="story">
+      <img src="assets/scroll.png" alt="Rezeptrolle" class="scroll-img">
+      <img src="assets/vater.png" alt="Inhaber Bistro L'incontro" class="scroll-owner">
+      <img src="assets/pen.png" alt="Tintenstift" class="pen-deco">
+
+      <div class="scroll-text">
+        <p>
+          <span class="scroll-title">Willkommen im Bistro L’incontro</span><br>
+          Seit 2008 hat Ali dieses Restaurant<br>
+          mit viel Herz und Leidenschaft geführt.<br><br>
+          Gutes italienisches Essen,<br>
+          frische Zutaten und echte Gastfreundschaft<br>
+          standen für ihn immer an erster Stelle –<br>
+          und genau das spürt man hier bis heute.<br><br>
+          Was damals begonnen hat,<br>
+          führen wir heute genauso weiter:<br>
+          ehrliches Essen, eine familiäre Atmosphäre<br>
+          und Qualität, die man schmeckt.<br><br>
+        </p>
+      </div>
+    </section>
+
+    <!-- STANDORT -->
+    <section class="location-section">
+
+      <!-- Karte 1: Wo finden Sie uns? -->
+      <div class="location-inner">
+
+        <h2>Wo finden Sie uns?</h2>
+        <p class="location-subtitle">Gegenüber der Uni-Bibliothek Bonn</p>
+
+        <div class="map-row">
+          <img
+            src="assets/strassenschild.png"
+            alt="Bistro L'incontro Straßenschild"
+            class="location-sign">
+
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps?q=Adenauerallee%2012-14%2C%2053113%20Bonn&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <p class="address">
+          Adenauerallee 12–14<br>
+          53113 Bonn
+        </p>
+
+      </div>
+
+      <!-- Karten 2 & 3: Öffnungszeiten + Kontakt -->
+      <div class="info-grid" id="oeffnungszeiten">
+        <div class="info-box">
+          <h3>Öffnungszeiten</h3>
+          <p>Montag – Freitag<br>08:00 – 21:00 Uhr</p>
+          <p>Samstag<br>10:00 – 18:00 Uhr</p>
+          <p>Sonntag<br><strong>Ruhetag</strong></p>
+        </div>
+
+        <div class="info-box" id="kontakt">
+          <h3>Kontakt</h3>
+          <p>Telefon:<br><strong>0228 214960</strong></p>
+          <p>E-Mail:<br><strong>info.bistrolincontro@gmail.com</strong></p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© Bistro L'incontro · Italian Restaurant</p>
+  </footer>
+
+  <!-- DROPDOWN + STICKY-FALLBACK SCRIPT -->
+  <script>
+    // ===== Dropdown =====
+    const dropdown = document.querySelector('.nav-dropdown');
+    const trigger = document.querySelector('.nav-trigger');
+
+    if (dropdown && trigger) {
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('open');
+      });
+
+      document.addEventListener('click', () => {
+        dropdown.classList.remove('open');
+      });
+
+      document.querySelectorAll('.dropdown-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          dropdown.classList.remove('open');
+        });
+      });
+    }
+
+    // ===== Sticky/Fix Fallback (ohne Springen) =====
+    document.addEventListener('DOMContentLoaded', () => {
+      const nav = document.querySelector('.nav');
+      const spacer = document.querySelector('.nav-spacer');
+
+      if (!nav) return;
+      if (nav.classList.contains('menu-nav')) return;
+
+      let navTop = 0;
+      let originalMarginTop = 0; // ✅ merkt sich das negative margin-top
+
+      const setSpacer = (on) => {
+        if (!spacer) return;
+
+        if (on) {
+          spacer.classList.add('active');
+
+          // ✅ Exakt der Platz, den die Nav vorher im Layout "belegt" hat:
+          // Höhe + margin-top (bei dir negativ -> Spacer wird kleiner -> kein Springen)
+          const h = nav.offsetHeight + originalMarginTop;
+          spacer.style.height = Math.max(0, h) + 'px';
+        } else {
+          spacer.classList.remove('active');
+          spacer.style.height = '0px';
+        }
+      };
+
+      const measure = () => {
+        nav.classList.remove('is-stuck');
+        setSpacer(false);
+
+        const cs = getComputedStyle(nav);
+        originalMarginTop = parseFloat(cs.marginTop) || 0;
+
+        navTop = nav.getBoundingClientRect().top + window.scrollY;
+      };
+
+      const onScroll = () => {
+        const shouldStick = window.scrollY >= navTop;
+
+        if (shouldStick) {
+          if (!nav.classList.contains('is-stuck')) {
+            nav.classList.add('is-stuck');
+            setSpacer(true);
+          }
+        } else {
+          if (nav.classList.contains('is-stuck')) {
+            nav.classList.remove('is-stuck');
+            setSpacer(false);
+          }
+        }
+      };
+
+      measure();
+      onScroll();
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => {
+        measure();
+        onScroll();
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vegetarische Gerichte – Bistro L'incontro</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* =========================
+       VEGETARISCH: NAV (HELLGRÜN) wie Pizza/Pasta
+       ========================= */
+
+    :root{
+      --vegi-color: #6fbf73;
+    }
+
+    /* Nur Position + Farbe setzen (Layout kommt aus style.css -> wichtig für Mobile) */
+    .nav.nav-vegi{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background-color: var(--vegi-color);
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .nav.nav-vegi .dropdown-menu{
+      background-color: var(--vegi-color);
+    }
+
+    .nav.nav-vegi .dropdown-menu a:hover{
+      background-color: rgba(255,255,255,0.15);
+    }
+
+    /* Logo (Desktop bleibt) */
+    .nav.nav-vegi .menu-logo{
+      position: absolute;
+      top: -10px;
+      left: -20px;
+      width: 260px;
+      transform: rotate(-14deg);
+      filter: drop-shadow(0 14px 22px rgba(0,0,0,0.45));
+      z-index: 10000;
+      pointer-events: none;
+    }
+
+    /* =========================
+       PAGE LAYOUT
+       ========================= */
+
+    .menu-page{
+      max-width: 900px;
+      margin: 50px auto 90px;
+      padding: 50px 20px 0;
+    }
+
+    .menu-heading{
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+
+    .menu-heading::before,
+    .menu-heading::after{
+      content: "";
+      flex: 1;
+      height: 2px;
+      background-color: var(--vegi-color);
+      opacity: 0.6;
+    }
+
+    .menu-heading h1{
+      font-size: 2.6rem;
+      color: var(--vegi-color);
+      white-space: nowrap;
+    }
+
+    .menu-subline{
+      text-align: center;
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 35px;
+    }
+
+    /* =========================
+       CARDS
+       ========================= */
+
+    .menu-card{
+      display: grid;
+      grid-template-columns: 110px 1fr auto;
+      gap: 24px;
+      align-items: center;
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px 26px;
+      margin-bottom: 26px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+      opacity: 0;
+    }
+
+    .menu-card img{
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .menu-info h3{
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .menu-info p{
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    .menu-price{
+      font-size: 1.2rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* =========================
+       ANIMATION
+       ========================= */
+
+    .menu-card.from-left{
+      transform: translateX(-60px);
+      animation: fadeSlideIn 5000ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .menu-card.from-right{
+      transform: translateX(60px);
+      animation: fadeSlideIn 5000ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes fadeSlideIn{
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .menu-card{
+        opacity: 1;
+        transform: none !important;
+        animation: none !important;
+      }
+    }
+
+    /* =========================
+       MOBILE (wie Pizza/Pasta) + H1 1 Zeile
+       ========================= */
+    @media (max-width: 700px){
+
+      /* Logo nur Mobile aus */
+      .nav.nav-vegi .menu-logo{
+        display: none !important;
+      }
+
+      /* Luft unter fixed Nav */
+      .menu-page{
+        max-width: 100%;
+        margin: 20px auto 60px;
+        padding: 45px 12px 0;
+      }
+
+      /* ✅ Überschrift bleibt 1 Zeile und passt sich an */
+      .menu-heading h1{
+        font-size: clamp(1.35rem, 6vw, 2.05rem);
+        line-height: 1.1;
+        white-space: nowrap;
+      }
+
+      /* Minimaler Rand, damit nix am Display klebt */
+      .menu-heading{
+        padding: 0 6px;
+      }
+
+      /* Dropdown scrollbar */
+      .nav.nav-vegi .dropdown-menu{
+        min-width: 240px;
+        max-height: 65vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Karten wie Monitor (kleines Bild links) */
+      .menu-card{
+        grid-template-columns: 86px 1fr auto;
+        gap: 14px;
+        align-items: center;
+
+        padding: 14px 14px;
+        margin-bottom: 14px;
+        border-radius: 18px;
+
+        transform: none !important;
+        animation-duration: 900ms;
+      }
+
+      .menu-card img{
+        width: 86px;
+        height: 86px;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      .menu-info{
+        text-align: left;
+      }
+
+      .menu-info h3{
+        font-size: 1.05rem;
+        margin-bottom: 4px;
+        line-height: 1.2;
+      }
+
+      .menu-info p{
+        font-size: 0.92rem;
+        line-height: 1.3;
+      }
+
+      .menu-price{
+        font-size: 1.02rem;
+        font-weight: 700;
+        white-space: nowrap;
+        align-self: start;
+        padding-top: 2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="nav nav-vegi menu-nav">
+  <img src="assets/logo.png" alt="Bistro L'incontro Logo" class="menu-logo">
+
+  <a href="index.html" class="nav-item">Startseite</a>
+
+  <div class="nav-dropdown">
+    <span class="nav-item nav-trigger active">Speisekarte ▾</span>
+    <div class="dropdown-menu">
+      <a href="pizza.html">Pizza</a>
+      <a href="pasta.html">Pasta</a>
+      <a href="salate.html">Salate</a>
+      <a href="doener.html">Döner</a>
+      <a href="vegetarische-gerichte.html">Vegetarische Gerichte</a>
+      <a href="burger-menues.html">Burger-Menüs</a>
+      <a href="schnitzelgerichte.html">Schnitzelgerichte</a>
+      <a href="wurst.html">Wurst</a>
+      <a href="basmati-reis-gerichte.html">Basmati-Reis-Gerichte</a>
+    </div>
+  </div>
+
+  <a href="index.html#oeffnungszeiten" class="nav-item">Öffnungszeiten</a>
+  <a href="index.html#kontakt" class="nav-item">Kontakt</a>
+</nav>
+
+<main class="menu-page">
+
+  <div class="menu-heading">
+    <h1>Vegetarische Gerichte</h1>
+  </div>
+
+  <p class="menu-subline">
+    Frisch · Vegetarisch · Hausgemacht
+  </p>
+
+  <!-- 01 -->
+  <div class="menu-card">
+    <img src="assets/falafeltasche.png" alt="Flafel Tasche">
+    <div class="menu-info">
+      <h3>Falafel Tasche <span style="font-weight:400;">(im Fladenbrot)</span></h3>
+      <p>frittierte Bällchen aus pürierten Kichererbsen, Kräuter und Gewürzen</p>
+    </div>
+    <div class="menu-price">5,50 €</div>
+  </div>
+
+  <!-- 02 -->
+  <div class="menu-card">
+    <img src="assets/falafeldueruem.png" alt="Flafel Dürüm">
+    <div class="menu-info">
+      <h3>Falafel Dürüm <span style="font-weight:400;">(in Teigrolle)</span></h3>
+      <p>frittierte Bällchen aus pürierten Kichererbsen, Kräuter und Gewürzen</p>
+    </div>
+    <div class="menu-price">5,50 €</div>
+  </div>
+
+  <!-- 03 -->
+  <div class="menu-card">
+    <img src="assets/falafeltellermitpommes.png" alt="Flafel Teller mit Pommes">
+    <div class="menu-info">
+      <h3>Falafel Teller <span style="font-weight:400;">(mit Pommes frites)</span></h3>
+      <p>mit gemischtem Salat, Tzatziki, Beilage nach Wahl</p>
+    </div>
+    <div class="menu-price">7,50 €</div>
+  </div>
+
+  <!-- 04 -->
+  <div class="menu-card">
+    <img src="assets/falafeltellermitreis.png" alt="Flafel Teller mit Reis">
+    <div class="menu-info">
+      <h3>Falafel Teller <span style="font-weight:400;">(mit Reis)</span></h3>
+      <p>mit gemischtem Salat, Tzatziki, Beilage nach Wahl</p>
+    </div>
+    <div class="menu-price">7,50 €</div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>© Bistro L'incontro · Italian Restaurant</p>
+</footer>
+
+<script>
+  const dropdown = document.querySelector('.nav-dropdown');
+  const trigger = document.querySelector('.nav-trigger');
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+  });
+
+  document.addEventListener('click', () => {
+    dropdown.classList.remove('open');
+  });
+
+  document.querySelectorAll('.dropdown-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      dropdown.classList.remove('open');
+    });
+  });
+
+  const cards = document.querySelectorAll('.menu-card');
+  cards.forEach((card, i) => {
+    card.classList.add(i % 2 === 0 ? 'from-left' : 'from-right');
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salate – Bistro L'incontro</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* =========================
+       SALATE: NAV (GRÜN) wie Pizza/Pasta
+       ========================= */
+
+    /* WICHTIG: nur Position + Farbe setzen (Layout kommt aus style.css) */
+    .nav.nav-green {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background-color: #2f7a2f;
+
+      /* wie Pizza/Pasta: nur links/rechts, rest macht style.css */
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    /* Dropdown grün */
+    .nav.nav-green .dropdown-menu {
+      background-color: #2f7a2f;
+    }
+    .nav.nav-green .dropdown-menu a:hover {
+      background-color: rgba(255,255,255,0.12);
+    }
+
+    /* Logo wie Pizza/Pasta (Desktop bleibt) */
+    .nav.nav-green .menu-logo {
+      position: absolute;
+      top: -10px;
+      left: -20px;
+      width: 260px;
+      transform: rotate(-14deg);
+      filter: drop-shadow(0 14px 22px rgba(0,0,0,0.45));
+      z-index: 10000;
+      pointer-events: none;
+    }
+
+    /* Abstand zur fixed Leiste (Desktop) */
+    .menu-page {
+      max-width: 900px;
+      margin: 50px auto 90px;
+      padding: 50px 20px 0;
+    }
+
+    /* Headline grün */
+    .menu-heading {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+
+    .menu-heading::before,
+    .menu-heading::after {
+      content: "";
+      flex: 1;
+      height: 2px;
+      background-color: #2f7a2f;
+      opacity: 0.6;
+    }
+
+    .menu-heading h1 {
+      font-size: 2.6rem;
+      color: #2f7a2f;
+      white-space: nowrap;
+    }
+
+    .menu-subline {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 35px;
+    }
+
+    /* Cards (Desktop) */
+    .menu-card {
+      display: grid;
+      grid-template-columns: 110px 1fr auto;
+      gap: 24px;
+      align-items: center;
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px 26px;
+      margin-bottom: 26px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+      opacity: 0;
+    }
+
+    .menu-card img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .menu-info h3 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .allergen {
+      font-size: 0.7rem;
+      vertical-align: super;
+      margin-left: 3px;
+      color: #777;
+    }
+
+    .menu-info p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    .menu-price {
+      font-size: 1.2rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .allergen-box {
+      margin-top: 80px;
+      font-size: 0.85rem;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .allergen-box h3 {
+      font-size: 1.2rem;
+      color: #2f7a2f;
+      margin-bottom: 12px;
+    }
+
+    /* Animation links/rechts */
+    .menu-card.from-left {
+      transform: translateX(-60px);
+      animation: fadeSlideIn 5000ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .menu-card.from-right {
+      transform: translateX(60px);
+      animation: fadeSlideIn 5000ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes fadeSlideIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .menu-card { opacity: 1; transform: none !important; animation: none !important; }
+    }
+
+    /* =========================
+       MOBILE (wie Pizza/Pasta)
+       ========================= */
+    @media (max-width: 700px) {
+
+      /* Logo NUR mobile weg */
+      .nav.nav-green .menu-logo {
+        display: none !important;
+      }
+
+      /* Luft unter der fixed Nav */
+      .menu-page {
+        max-width: 100%;
+        margin: 20px auto 60px;
+        padding: 45px 12px 0;
+      }
+
+      /* Dropdown scrollbar */
+      .nav.nav-green .dropdown-menu {
+        min-width: 240px;
+        max-height: 65vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Karten wie Monitor (kleines Bild links) */
+      .menu-card {
+        grid-template-columns: 86px 1fr auto;
+        gap: 14px;
+        align-items: center;
+
+        padding: 14px 14px;
+        margin-bottom: 14px;
+        border-radius: 18px;
+
+        transform: none !important;
+        animation-duration: 900ms;
+      }
+
+      .menu-card img {
+        width: 86px;
+        height: 86px;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      .menu-info { text-align: left; }
+
+      .menu-info h3 {
+        font-size: 1.05rem;
+        margin-bottom: 4px;
+        line-height: 1.2;
+      }
+
+      .menu-info p {
+        font-size: 0.92rem;
+        line-height: 1.3;
+      }
+
+      .menu-price {
+        font-size: 1.02rem;
+        font-weight: 700;
+        white-space: nowrap;
+        align-self: start;
+        padding-top: 2px;
+      }
+
+      .allergen {
+        font-size: 0.7rem;
+        margin-left: 2px;
+      }
+
+      .allergen-box {
+        margin-top: 40px;
+        font-size: 0.9rem;
+        padding: 18px 14px;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 10px 26px rgba(0,0,0,0.06);
+      }
+
+      .allergen-box h3 {
+        font-size: 1.15rem;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="nav nav-green menu-nav">
+  <img src="assets/logo.png" alt="Bistro L'incontro Logo" class="menu-logo">
+
+  <a href="index.html" class="nav-item">Startseite</a>
+
+  <div class="nav-dropdown">
+    <span class="nav-item nav-trigger active">Speisekarte ▾</span>
+    <div class="dropdown-menu">
+      <a href="pizza.html">Pizza</a>
+      <a href="pasta.html">Pasta</a>
+      <a href="salate.html">Salate</a>
+      <a href="doener.html">Döner</a>
+      <a href="vegetarische-gerichte.html">Vegetarische Gerichte</a>
+      <a href="burger-menues.html">Burger-Menüs</a>
+      <a href="schnitzelgerichte.html">Schnitzelgerichte</a>
+      <a href="wurst.html">Wurst</a>
+      <a href="basmati-reis-gerichte.html">Basmati-Reis-Gerichte</a>
+    </div>
+  </div>
+
+  <a href="index.html#oeffnungszeiten" class="nav-item">Öffnungszeiten</a>
+  <a href="index.html#kontakt" class="nav-item">Kontakt</a>
+</nav>
+
+<main class="menu-page">
+
+  <div class="menu-heading">
+    <h1>Salate</h1>
+  </div>
+
+  <p class="menu-subline">
+    Frisch · Knackig · Saisonal
+  </p>
+
+  <!-- 01 -->
+  <div class="menu-card">
+    <img src="assets/insalataverde.png" alt="Insalata Verde">
+    <div class="menu-info">
+      <h3>Insalata Verde</h3>
+      <p>Grüner Salat</p>
+    </div>
+    <div class="menu-price">3,40 €</div>
+  </div>
+
+  <!-- 02 -->
+  <div class="menu-card">
+    <img src="assets/insalatadipomodori.png" alt="Insalata di Pomodori">
+    <div class="menu-info">
+      <h3>Insalata di Pomodori</h3>
+      <p>Tomaten und Zwiebeln</p>
+    </div>
+    <div class="menu-price">5,90 €</div>
+  </div>
+
+  <!-- 03 -->
+  <div class="menu-card">
+    <img src="assets/insalatamista.png" alt="Insalata Misto">
+    <div class="menu-info">
+      <h3>Insalata Mista</h3>
+      <p>Gemischter Salat der Saison</p>
+    </div>
+    <div class="menu-price">6,20 €</div>
+  </div>
+
+  <!-- 04 -->
+  <div class="menu-card">
+    <img src="assets/insalatatonnoepomodori.png" alt="Insalata Tonno e Pomodori">
+    <div class="menu-info">
+      <h3>Insalata Tonno e Pomodori <span class="allergen">D</span></h3>
+      <p>Tomaten, Thunfisch<span class="allergen">D</span> und Zwiebeln</p>
+    </div>
+    <div class="menu-price">6,90 €</div>
+  </div>
+
+  <!-- 05 -->
+  <div class="menu-card">
+    <img src="assets/insalatapaesana.png" alt="Insalata Paesano">
+    <div class="menu-info">
+      <h3>Insalata Paesana <span class="allergen">3,4, G</span></h3>
+      <p>Gemischter Salat mit Schinken<span class="allergen">3,4</span> und Käse<span class="allergen">G</span></p>
+    </div>
+    <div class="menu-price">7,60 €</div>
+  </div>
+
+  <!-- 06 -->
+  <div class="menu-card">
+    <img src="assets/insalatanizza.png" alt="Insalata Nizza">
+    <div class="menu-info">
+      <h3>Insalata Nizza <span class="allergen">D, C</span></h3>
+      <p>Gemischter Salat mit Thunfisch<span class="allergen">D</span>, Ei<span class="allergen">C</span> und Zwiebeln</p>
+    </div>
+    <div class="menu-price">7,90 €</div>
+  </div>
+
+  <!-- 07 -->
+  <div class="menu-card">
+    <img src="assets/insalatacontadina.png" alt="Insalata Contadino">
+    <div class="menu-info">
+      <h3>Insalata Contadina <span class="allergen">G</span></h3>
+      <p>Gemischter Salat mit Schafskäse<span class="allergen">G</span> und Oliven</p>
+    </div>
+    <div class="menu-price">7,60 €</div>
+  </div>
+
+  <!-- 08 -->
+  <div class="menu-card">
+    <img src="assets/insalatatricolori.png" alt="Insalata Tricolori">
+    <div class="menu-info">
+      <h3>Insalata Tricolori <span class="allergen">G, C</span></h3>
+      <p>Salat der Saison mit Mais, Tomaten, Mozzarella<span class="allergen">G</span>, Ei<span class="allergen">C</span> und Oliven</p>
+    </div>
+    <div class="menu-price">7,80 €</div>
+  </div>
+
+  <!-- 09 -->
+  <div class="menu-card">
+    <img src="assets/insalatacaprese.png" alt="Insalata Caprese">
+    <div class="menu-info">
+      <h3>Insalata Caprese <span class="allergen">G</span></h3>
+      <p>Tomaten, Mozzarella<span class="allergen">G</span> und Basilikum</p>
+    </div>
+    <div class="menu-price">7,60 €</div>
+  </div>
+
+  <!-- 10 -->
+  <div class="menu-card">
+    <img src="assets/insalatadellacasa.png" alt="Insalata della Casa">
+    <div class="menu-info">
+      <h3>Insalata della Casa <span class="allergen">3, G</span></h3>
+      <p>Gemischter Salat mit gebratenem Speck<span class="allergen">3</span>, Champignons und Mozzarella<span class="allergen">G</span></p>
+    </div>
+    <div class="menu-price">8,90 €</div>
+  </div>
+
+  <!-- 11 -->
+  <div class="menu-card">
+    <img src="assets/insalatagambaretti.png" alt="Insalata Gambaretti">
+    <div class="menu-info">
+      <h3>Insalata Gambaretti <span class="allergen">B</span></h3>
+      <p>Gemischter Salat mit Krabben<span class="allergen">B</span> und Pilzen</p>
+    </div>
+    <div class="menu-price">9,20 €</div>
+  </div>
+
+  <!-- 12 -->
+  <div class="menu-card">
+    <img src="assets/insalatalincontro.png" alt="Insalata L’incontro">
+    <div class="menu-info">
+      <h3>Insalata L’incontro</h3>
+      <p>Gemischter Salat mit gebratenem Hähnchen und Champignons</p>
+    </div>
+    <div class="menu-price">9,20 €</div>
+  </div>
+
+  <!-- 13 -->
+  <div class="menu-card">
+    <img src="assets/portionscharfskaese.png" alt="Portion Schafskäse">
+    <div class="menu-info">
+      <h3>Portion Schafskäse <span class="allergen">G</span></h3>
+      <p>mit Oregano, Zwiebeln und Olivenöl</p>
+    </div>
+    <div class="menu-price">5,90 €</div>
+  </div>
+
+  <div class="allergen-box">
+    <h3>Enthält folgende Allergene:</h3>
+    <p>
+      B = Krebstiere ·
+      C = Eier ·
+      D = Fisch ·
+      G = Milch und Milchprodukte (einschließlich Laktose)
+    </p>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>© Bistro L'incontro · Italian Restaurant</p>
+</footer>
+
+<script>
+  // Dropdown
+  const dropdown = document.querySelector('.nav-dropdown');
+  const trigger = document.querySelector('.nav-trigger');
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+  });
+
+  document.addEventListener('click', () => {
+    dropdown.classList.remove('open');
+  });
+
+  document.querySelectorAll('.dropdown-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      dropdown.classList.remove('open');
+    });
+  });
+
+  // Reinfliegen: nur .menu-card zählt
+  const cards = document.querySelectorAll('.menu-card');
+  cards.forEach((card, i) => {
+    card.classList.add(i % 2 === 0 ? 'from-left' : 'from-right');
+  });
+</script>
+
+</body>
+</html>
